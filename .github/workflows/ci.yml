@@ -25,9 +25,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+
+      - name: Set Environment Variables
+        run: |
+          echo "GIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+          echo "GIT_REF=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match)" >> $GITHUB_ENV
+ 
 
       - uses: azure/docker-login@v1
         with:
@@ -47,5 +50,5 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/386
           push: true
           tags: |
-            myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-            myfunc-${GITHUB_REF##*/}:latest
+            myfunc-${{ env.GIT_REF }}:${{ env.GIT_SHA }}
+            myfunc-${{ env.GIT_REF }}:latest
