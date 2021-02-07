@@ -47,5 +47,5 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/386
           push: true
           tags: |
-            - myfunc/${GITHUB_REF##*/}:${GITHUB_SHA::8}
-            - myfunc/${GITHUB_REF##*/}:latest
+            - myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+            - myfunc-${GITHUB_REF##*/}:latest
