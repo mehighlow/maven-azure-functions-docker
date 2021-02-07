@@ -35,6 +35,17 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - run: |
-          docker build -f fabrikam-functions/Dockerfile fabrikam-functions/ -t mvnfunc.azurecr.io/myfunc-${{ github.ref }}:${{ github.sha }}
-          docker push mvnfunc.azurecr.io/myfunc-${{ github.sha }}:${{ github.sha }}
+      # - run: |
+      #     docker build -f fabrikam-functions/Dockerfile fabrikam-functions/ -t mvnfunc.azurecr.io/myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+      #     docker push mvnfunc.azurecr.io/myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: fabrikam-functions
+          file: ./fabrikam-functions/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/386
+          push: true
+          tags: |
+            - myfunc/${GITHUB_REF##*/}:${GITHUB_SHA::8}
+            - myfunc/${GITHUB_REF##*/}:latest
