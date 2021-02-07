@@ -34,6 +34,7 @@ jobs:
         with:
           context: fabrikam-functions
           file: ./fabrikam-functions/Dockerfile
+          platforms: linux/amd64
           push: true
           labels: |
             com.fabrikam.image.revision=${{ github.sha }}
