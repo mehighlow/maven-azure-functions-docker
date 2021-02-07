@@ -32,12 +32,18 @@ jobs:
           echo "GIT_REF=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match)" >> $GITHUB_ENV
  
 
-      - uses: azure/docker-login@v1
+      # - uses: azure/docker-login@v1
+      #   with:
+      #     login-server: mvnfunc.azurecr.io
+      #     username: ${{ secrets.REGISTRY_USERNAME }}
+      #     password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
         with:
-          login-server: mvnfunc.azurecr.io
+          registry: mvnfunc.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-
       # - run: |
       #     docker build -f fabrikam-functions/Dockerfile fabrikam-functions/ -t mvnfunc.azurecr.io/myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
       #     docker push mvnfunc.azurecr.io/myfunc-${GITHUB_REF##*/}:${GITHUB_SHA::8}
