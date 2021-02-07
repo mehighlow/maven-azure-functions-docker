@@ -1,0 +1,18 @@
+name: ci
+
+on:
+  push:
+    branches: [ * ]
+
+jobs:
+
+  build:
+  - uses: azure/docker-login@v1
+    with:
+      login-server: mvnfunc.azurecr.io
+      username: ${{ secrets.REGISTRY_USERNAME }}
+      password: ${{ secrets.REGISTRY_PASSWORD }}
+
+  - run: |
+      docker build -f fabrikam-functions/Dockerfile . -t mvnfunc.azurecr.io/myfunc-${{ github.sha }}:${{ github.sha }}
+      docker push mvnfunc.azurecr.io/myfunc-${{ github.sha }}:${{ github.sha }}
