@@ -36,5 +36,5 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - run: |
-          docker build -f fabrikam-functions/Dockerfile . -t mvnfunc.azurecr.io/myfunc-${{ github.sha }}:${{ github.sha }}
+          docker build -f fabrikam-functions/Dockerfile fabrikam-functions/ -t mvnfunc.azurecr.io/myfunc-${{ github.ref }}:${{ github.sha }}
           docker push mvnfunc.azurecr.io/myfunc-${{ github.sha }}:${{ github.sha }}
