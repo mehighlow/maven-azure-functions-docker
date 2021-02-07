@@ -56,5 +56,5 @@ jobs:
           file: ./fabrikam-functions/Dockerfile
           push: true
           tags: |
-            myfunc-${{ env.GIT_REF }}:${{ env.GIT_SHA }}
-            myfunc-${{ env.GIT_REF }}:latest
+            mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:${{ env.GIT_SHA }}
+            mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:latest
