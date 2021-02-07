@@ -32,10 +32,11 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-
           context: fabrikam-functions
           file: ./fabrikam-functions/Dockerfile
           push: true
+          labels: |
+            com.fabrikam.image.revision=${{ github.sha }}
           tags: |
             mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:${{ env.GIT_SHA }}
             mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:latest
