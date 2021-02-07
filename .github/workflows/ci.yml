@@ -39,8 +39,8 @@ jobs:
           labels: |
             com.fabrikam.image.revision=${{ github.sha }}
           tags: |
-            mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:${{ env.GIT_SHA }}
-            mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:latest
+            mvnfunc.azurecr.io/myfunc/${{ env.GIT_REF }}:${{ env.GIT_SHA }}
+            mvnfunc.azurecr.io/myfunc/${{ env.GIT_REF }}:latest
 
 
       - name: 'Login via Azure CLI'
@@ -54,7 +54,7 @@ jobs:
         id: fa
         with:
           app-name: mavenfunc
-          image: mvnfunc.azurecr.io/myfunc-${{ env.GIT_REF }}:latest
+          image: mvnfunc.azurecr.io/myfunc/${{ env.GIT_REF }}:latest
       #- name: 'use the published functionapp url in upcoming steps'
       #  run: |
       #    echo "${{ steps.fa.outputs.app-url }}"
